@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+//TensorFlow
+import * as tf from '@tensorflow/tfjs';
 import { StackNavigator } from 'react-navigation';
 import HomeScreen from './containers/HomeScreen';
 import ImageScreen from './containers/ImageScreen';
