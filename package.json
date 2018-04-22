@@ -1,0 +1,11 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "stuff",
+  "main": "index.js",
+  "author": "gene",
+  "license": "MIT",
+  "dependencies": {
+    "opencv4nodejs": "^4.2.1"
+  }
+}

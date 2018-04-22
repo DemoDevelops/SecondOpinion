@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Hello OpenCV.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.9.0"> </script>
+</head>
+
+<body>
+  <h2>Hello OpenCV.js</h2>
+  <p id="status">OpenCV.js is loading...</p>
+  <div>
+    <div class="inputoutput">
+      <img id="imageSrc" alt="No Image" />
+      <div class="caption">imageSrc
+        <input type="file" id="fileInput" name="file" />
+      </div>
+    </div>
+    <div class="inputoutput">
+      <canvas id="canvasOutput"></canvas>
+      <div class="caption">canvasOutput</div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    let imgElement = document.getElementById('imageSrc');
+    let inputElement = document.getElementById('fileInput');
+    inputElement.addEventListener('change', (e) => {
+      imgElement.src = URL.createObjectURL(e.target.files[0]);
+    }, false);
+    imgElement.onload = async function () {
+      let example = tf.fromPixels(imgElement);
+      let resized = tf.image.resizeBilinear(example, [128,128], true);
+      let img = tf.reshape(resized, [1, 128, 128, 3]);
+      let casted = tf.cast(img, 'float32');
+      console.dir(casted);
+      // console.log(example);
+      const model = await tf.loadModel("./CNN_Model/model/model.json");
+      let result = model.predict(casted);
+      result.print();
+      console.dir(result.as1D().argMax().get(0));
+    };
+
+    function onOpenCvReady() {
+      document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
+    }
+  </script>
+</body>
+
+</html>
