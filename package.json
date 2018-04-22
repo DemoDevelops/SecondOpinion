@@ -6,6 +6,7 @@
   "author": "gene",
   "license": "MIT",
   "dependencies": {
+    "http-server": "^0.11.1",
     "opencv4nodejs": "^4.2.1"
   }
 }
