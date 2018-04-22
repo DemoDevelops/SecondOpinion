@@ -1,50 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/docs/3.3/favicon.ico">
 
-<head>
-  <meta charset="utf-8">
-  <title>Hello OpenCV.js</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.9.0"> </script>
-</head>
+    <title>Narrow Jumbotron Template for Bootstrap</title>
 
-<body>
-  <h2>Hello OpenCV.js</h2>
-  <p id="status">OpenCV.js is loading...</p>
-  <div>
-    <div class="inputoutput">
-      <img id="imageSrc" alt="No Image" />
-      <div class="caption">imageSrc
-        <input type="file" id="fileInput" name="file" />
+    <!-- Bootstrap core CSS -->
+    <link href="narrow_home_files/bootstrap.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="narrow_home_files/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="narrow_home_files/jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="narrow_home_files/album.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="narrow_home_files/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <h3 class="text-muted">Second Opinion</h3>
       </div>
-    </div>
-    <div class="inputoutput">
-      <canvas id="canvasOutput"></canvas>
-      <div class="caption">canvasOutput</div>
-    </div>
-  </div>
-  <script type="text/javascript">
-    let imgElement = document.getElementById('imageSrc');
-    let inputElement = document.getElementById('fileInput');
-    inputElement.addEventListener('change', (e) => {
-      imgElement.src = URL.createObjectURL(e.target.files[0]);
-    }, false);
-    imgElement.onload = async function () {
-      let example = tf.fromPixels(imgElement);
-      let resized = tf.image.resizeBilinear(example, [128,128], true);
-      let img = tf.reshape(resized, [1, 128, 128, 3]);
-      let casted = tf.cast(img, 'float32');
-      console.dir(casted);
-      // console.log(example);
-      const model = await tf.loadModel("./CNN_Model/model/model.json");
-      let result = model.predict(casted);
-      result.print();
-      console.dir(result.as1D().argMax().get(0));
-    };
 
-    function onOpenCvReady() {
-      document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
-    }
-  </script>
-</body>
+      <div class="jumbotron">
+        <h2>Get a Second Opinion.</h2>
+        <p class="lead">Upload your X-ray, and our machine learning algorithm will analyze it.</p>
+        <label class="btn btn-lg btn-success" href="#" role="button">Upload
+          <input type="file" id="fileInput" name="file" class="d-none" />
+        </label>
+      </div>
 
-</html>
+      <div class="row">
+        <div class="col-xs-12">
+          <img id="imageSrc" class="img-fluid" />
+        </div>
+        
+          <div class="table-responsive">
+          <table class="table d-none text-center" id="results">
+            <thead>
+              <tr>
+                <th scope="col">Disease</th>
+                <th scope="col">Probability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Consolidation</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Infiltration</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Pneumothorax</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Effusion</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Nodule Mass</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Atelectasis</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">Other Rare Classes</th>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        
+      </div>
+
+      <div class="row marketing center-block">
+        <div class="col-xs-12 col-md-6 text-center">
+          <h4>Tip</h4>
+          <p>If you don't have your X-ray in a digital format, place your X-ray on a sheet of white paper and snap a pic!</p>
+
+          <p><img class="center-block" style="max-width: 100%;  margin: auto; display: block;" src="example.jpg"></img></p>
+        </div>
+
+
+        <div class="col-xs-12 col-md-6 text-center">
+          <h4>Help us out!</h4>
+          <p>Our algorithm becomes stronger the more it's used. With your help we can surpass physician accuracy!</p>
+
+          <p><img class="center-block" style="max-width: 100%;  margin: auto; display: block;" src="colorhead.jpg"></img></p>
+        </div>
+      </div>
+
+
+      <footer class="footer text-center">
+        <p>Gene Demo, Vincent Chang, Paul Boguslaavskiy, Shubh Varma</p>
+        <p>© 2018 MediHack Entry, Inc.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.9.0"> </script>
+    <script src="test.js" "text/javascript"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="narrow_home_files/ie10-viewport-bug-workaround.js"></script>
+  
+
+</body></html>
